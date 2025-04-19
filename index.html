@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+  <title>Колесо Фортуны</title>
+   <!-- Подключение Конфетти -->
+  <script src="libs/canvas-confetti.min.js"></script>
+  <link rel="stylesheet" href="styles/main.css" />
+  <!-- Подключение JS -->
+  <script type="module" src="scripts/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+  <!-- Общий фон страницы -->
+  <div class="background">
+    <!-- Плейсхолдеры персонажей (пока прозрачные блоки) -->
+    <div class="character-placeholder left top-left"></div>
+    <div class="character-placeholder right top-right"></div>
+  </div>
+
+  <!-- Шапка сайта -->
+  <header class="header">
+    <div class="language-dropdown">
+      <div class="dropdown-toggle" id="languageToggle">
+        <img src="assets/icons/russia.png" alt="RU" class="flag-icon" />
+        <span>Русский</span>
+      </div>
+      <ul class="dropdown-menu hidden" id="languageMenu">
+        <li><img src="assets/icons/russia.png" alt="RU" class="flag-icon" /> Русский</li>
+        <li><img src="assets/icons/ukraine.png" alt="UA" class="flag-icon" /> Українська</li>
+        <li><img src="assets/icons/belarus.png" alt="BY" class="flag-icon" /> Беларуская</li>
+        <li><img src="assets/icons/kazakhstan.png" alt="KZ" class="flag-icon" /> Қазақша</li>
+      </ul>
+    </div>
+
+   
+  </header>
+
+  <!-- Центральная часть с колесом -->
+  <main class="main-content">
+   
+    <div class="logo">LOGO</div>
+    <div class="wheel-container">
+        <div class="character-placeholder center-wheel"></div> <!-- PLACEHOLDER для гифки за колесо -->
+        <div class="wheel-wrapper" id="wheel">
+            <img src="assets/images/wheelPlaceHolder350х350wb.png"
+                 alt="Колесо фортуны"
+                 class="wheel-bg" />
+          </div>
+
+      <!-- Статичная стрелочка -->
+      <img src="assets/images/wheelArrowPNG.png" alt="Arrow" class="wheel-arrow" />
+
+      <!-- Кнопка крутить -->
+      <button class="spin-button" id="spinButton">Крутить!</button>
+    </div>
+  </main>
+  <!-- Модальное окно с поздравлением -->
+  <div class="modal hidden" id="prizeModal">
+    <div class="modal-content">
+      <h2>Поздравляем!</h2>
+      <p>Заберите ваш приз!</p>
+      <button id="closeModal">Забрать</button>
+    </div>
+  </div>
+
+</body>
+</html>

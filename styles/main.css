@@ -1,0 +1,534 @@
+/* Сброс базовых отступов и box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    min-width: 380px;
+    overflow: hidden; /* 💥 Чтобы не вылазило */
+  }
+
+  /* Основной фон страницы */
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    color: white;
+    overflow-x: hidden;
+  }
+  
+  /* Контейнеры для прозрачных плейсхолдеров */
+  .character-placeholder {
+    position: absolute;
+    width: 150px;
+    height: 300px;
+    opacity: 0.1;
+    border: 2px dashed #ffffff30;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  /* Расположение плейсхолдеров */
+  .top-left {
+    top: 10%;
+    left: 2%;
+  }
+  
+  .bottom-left {
+    bottom: 10%;
+    left: 2%;
+  }
+  
+  .top-right {
+    top: 10%;
+    right: 2%;
+  }
+  
+  .bottom-right {
+    bottom: 10%;
+    right: 2%;
+  }
+  
+  /* Шапка */
+  .header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 10;
+  }
+
+  /* ЛОГО возле колеса */
+  .logo {
+    font-size: 43px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px #000;
+    width: 100%;
+  }
+  .language-dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+  }
+  
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  
+  .flag-icon {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0; /* Было: right: 0; */
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 5px 0;
+    list-style: none;
+    min-width: 160px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+  }
+  
+  .dropdown-menu li {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: white;
+    transition: background 0.2s ease;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #333;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Центральная часть */
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 🧲 Центр по вертикали */
+    min-height: 100vh; /* Занимает весь экран */
+    padding: 0 20px; /* Можно убрать 40px сверху */
+    position: relative;
+    z-index: 2;
+  }
+  
+  
+  .wheel-container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    margin: 0 auto; /* Центр по горизонтали */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирует все вложенные элементы */
+  }
+  
+  
+   .wheel-wrapper {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
+    transform: rotate(0deg);
+    z-index: 1;
+  } 
+
+  */
+  .wheel-bg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    pointer-events: none;
+    /* Убери вот это: */
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+    /* z-index: -1; */
+  }
+  
+
+/* Статичная стрелочка поверх колеса */
+.wheel-arrow {
+    position: absolute;
+    top: 40px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: auto;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+/* Кнопка крутить */
+.spin-button {
+  margin: 30px auto 0 auto; /* сверху 30px, по бокам авто = центр */
+  display: block;           /* блочный элемент — чтобы margin работал */
+  padding: 14px 32px;
+  font-size: 18px;
+  font-weight: bold;
+  background: linear-gradient(to right, #ffc107, #ff9800);
+  color: black;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+
+  .spin-button:hover {
+    background: linear-gradient(to right, #ffb300, #f57c00);
+    transform: scale(1.05);
+  }
+
+
+ .wheel-section {
+  --angle: calc(360deg / 8);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  background: #ffeb3b;
+  color: black;
+  font-weight: bold;
+  transform:
+    rotate(calc(var(--i) * var(--angle)))
+    translate(135px)
+    rotate(calc(var(--i) * -1 * var(--angle)))
+    rotate(45deg); /* превращает в ромб */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 11px;
+  border-radius: 10%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  z-index: 3;
+}
+
+  
+  /* Центральная кнопка */
+  .center-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 110px;
+    height: 110px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .center-button img {
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+  }
+  
+  .center-button span {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    pointer-events: none;
+    text-shadow: 1px 1px 3px black;
+  }
+  
+ 
+
+
+  
+  /* Модальное окно */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+  }
+  
+  .modal-content {
+    background: white;
+    color: black;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Кнопка в модальном окне */
+  #closeModal {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    background: #00cc66;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  /* Скрытие по умолчанию */
+  .hidden {
+    display: none;
+  }
+  
+  /* Canvas для конфетти */
+  #confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    z-index: 98;
+  }
+  
+
+  .modal-content.show {
+    animation: pop-in 0.5s ease forwards;
+  }
+  
+  @keyframes pop-in {
+    0% {
+      transform: scale(0.6);
+      opacity: 0;
+    }
+    80% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* 🎨 Стиль для модалки */
+  .modal-content {
+    background: linear-gradient(145deg, #1f1f3f, #292955);
+    border: 2px solid #ffa500;
+    color: #fff;
+    text-shadow: 0 1px 2px #000;
+  }
+  
+  /* 🟡 Кнопка “Забрать” */
+  #closeModal {
+    background: linear-gradient(to right, #ffb300, #ff8f00);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+  }
+  
+  #closeModal:hover {
+    background: linear-gradient(to right, #ffca28, #ffa000);
+    transform: scale(1.05);
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    .logo, .language-switcher {
+      flex: none;
+      text-align: center;
+    }
+  
+    .character-placeholder {
+      width: 100px;
+      height: 200px;
+    }
+
+    .wheel-container,
+    .wheel-wrapper {
+      width: 350px;
+      height: 350px;
+    }
+    
+    .wheel-arrow {
+      width: 40px;
+    }
+    
+    .spin-button {
+      font-size: 16px;
+      padding: 12px 24px;
+    }
+
+  }
+  
+  @media (max-width: 480px) {
+    #spinButton {
+      padding: 12px 20px;
+      font-size: 16px;
+    }
+  
+    .modal-content {
+      padding: 30px 20px;
+    }
+  }
+
+
+  .wheel-segment {
+    --angle: calc(360deg / 8);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    background: #ffeb3b;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    font-size: 11px;
+    border-radius: 10%;
+    transform:
+      rotate(calc(var(--i) * var(--angle)))
+      translate(145px)
+      rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    z-index: 3;
+  }
+  
+
+/* Настройки модального окна */
+
+/* Модалка должна просто красиво ВЫПРЫГИВАТЬ, но остаться видимой */
+.modal-content {
+    animation: pop-in 0.5s ease forwards;
+  }
+  
+  /* Эффект "выпрыгивания" */
+  @keyframes pop-in {
+    0% {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+    80% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+
+  @-webkit-keyframes focus-in-expand-fwd {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-transform: translateZ(-800px);
+              transform: translateZ(-800px);
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+      -webkit-filter: blur(0);
+              filter: blur(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes focus-in-expand-fwd {
+    0% {
+      letter-spacing: -0.5em;
+      transform: translateZ(-800px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateZ(0);
+      filter: blur(0);
+      opacity: 1;
+    }
+  }
+  
+  .focus-in-expand-fwd {
+    animation: focus-in-expand-fwd 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  
+
+
+  /* */
+
+  .center-wheel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Покроет весь .wheel-container */
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.05); /* Можешь заменить на гифку фоном */
+    border: 2px dashed #ffffff30;
+    z-index: 0; /* обязательно ниже колеса */
+    pointer-events: none;
+  }
+
+  /* background-image: url("../assets/gifs/fire.gif");
+background-size: cover;
+background-position: center;
+   */
+
+
+   /* Сообщение после прокрутки человеком */
+
+   /* .spin-button.already-spun {
+    background: linear-gradient(to right, #4caf50, #2e7d32);
+    color: white;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+  } */
