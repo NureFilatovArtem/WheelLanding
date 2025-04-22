@@ -18,46 +18,40 @@ import { hasSpunRecently } from "./utils.js";
 //   }
   
 
-  export function showConfetti() {
-    if (typeof confetti !== "undefined") {
-      confetti({
-        particleCount: 180,
-        spread: 100,
+export function showConfetti() {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    
+    // Base confetti settings
+    const confettiSettings = {
+        particleCount: screenWidth < 768 ? 50 : 100,
+        spread: screenWidth < 768 ? 60 : 100,
         origin: { y: 0.6 },
-        scalar: 1.1
-      });
-  
-      setTimeout(() => {
-        confetti({
-          particleCount: 60,
-          spread: 160,
-          origin: { y: 0.2 },
-          scalar: 1.4,
-          angle: 60 + Math.random() * 60 // от 60 до 120 градусов
-        });
-      }, 1000);
-    }
-  }
+        startVelocity: 30,
+        scalar: screenWidth < 768 ? 0.7 : 1,
+        ticks: 300,
+        zIndex: 100,
+        colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+    };
 
-  export function showPrizeModal() {
+    // Create confetti for full screen width
+    for (let i = 0; i < (screenWidth < 768 ? 2 : 4); i++) {
+        confetti({
+            ...confettiSettings,
+            origin: { 
+                x: (i + 1) / (screenWidth < 768 ? 3 : 5),
+                y: 0.6
+            }
+        });
+    }
+}
+
+export function showPrizeModal() {
     const modal = document.getElementById("prizeModal");
-    const button = modal.querySelector("button");
-  
-    modal.querySelector("h2").innerText = "Поздравляем!";
-    modal.querySelector("p").innerText = "Заберите ваш приз!";
-    button.innerText = "Забрать";
-  
-    // Удалим старый класс, если есть (для повторной анимации)
-    button.classList.remove("focus-in-expand-fwd");
-  
-    // Тригерим анимацию кнопки заново
-    void button.offsetWidth; // перезапуск анимации
-  
-    button.classList.add("focus-in-expand-fwd");
-  
     modal.classList.remove("hidden");
-    showConfetti(); 
-  }
+    modal.querySelector(".modal-content").classList.add("show");
+    showConfetti();
+}
 
  
   document.addEventListener("DOMContentLoaded", () => {

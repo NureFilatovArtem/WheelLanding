@@ -17,7 +17,8 @@
   /* Основной фон страницы */
   body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    background: url('../assets/images/mainbackground.png') no-repeat center center fixed;
+    background-size: cover;
     color: white;
     overflow-x: hidden;
   }
@@ -25,18 +26,26 @@
   /* Контейнеры для прозрачных плейсхолдеров */
   .character-placeholder {
     position: absolute;
-    width: 150px;
-    height: 300px;
-    opacity: 0.1;
-    border: 2px dashed #ffffff30;
+    width: 400px;
+    height: 600px;
     pointer-events: none;
     z-index: 1;
   }
   
+  .character-placeholder.left {
+    background: url('../assets/images/Charters1_.png') no-repeat center center;
+    background-size: contain;
+  }
+  
+  .character-placeholder.right {
+    background: url('../assets/images/Charters2_.png') no-repeat center center;
+    background-size: contain;
+  }
+  
   /* Расположение плейсхолдеров */
   .top-left {
-    top: 10%;
-    left: 2%;
+    top: 5%;
+    left: 0;
   }
   
   .bottom-left {
@@ -45,8 +54,8 @@
   }
   
   .top-right {
-    top: 10%;
-    right: 2%;
+    top: 5%;
+    right: 0;
   }
   
   .bottom-right {
@@ -144,46 +153,53 @@
   
   .wheel-container {
     position: relative;
-    width: 350px;
-    height: 350px;
-    margin: 0 auto; /* Центр по горизонтали */
+    width: 1050px; /* Увеличили в 3 раза с 350px */
+    height: 1050px; /* Увеличили в 3 раза с 350px */
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрирует все вложенные элементы */
+    align-items: center;
+    margin-top: 50px;
   }
   
   
    .wheel-wrapper {
     position: relative;
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
-    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
-    transform: rotate(0deg);
-    z-index: 1;
-  } 
-
-  */
-  .wheel-bg {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    pointer-events: none;
-    /* Убери вот это: */
-    /* position: absolute; */
-    /* top: 0; */
-    /* left: 0; */
-    /* z-index: -1; */
+    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
+    transform: rotate(0deg);
+    z-index: 2;
+  } 
+
+  .wheel-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    z-index: 1;
   }
-  
+
+  .wheel-inside {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
+    z-index: 2;
+  }
 
 /* Статичная стрелочка поверх колеса */
 .wheel-arrow {
     position: absolute;
-    top: 40px; 
+    top: -75px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
+    width: 120px; /* Увеличили примерно в 1.5-2 раза */
     height: auto;
     z-index: 3;
     pointer-events: none;
@@ -353,7 +369,7 @@
     text-shadow: 0 1px 2px #000;
   }
   
-  /* 🟡 Кнопка “Забрать” */
+  /* 🟡 Кнопка "Забрать" */
   #closeModal {
     background: linear-gradient(to right, #ffb300, #ff8f00);
     color: white;
@@ -372,6 +388,17 @@
   }
 
   /* Адаптивность */
+  @media (max-width: 1440px) {
+    .wheel-container {
+        width: 700px;
+        height: 700px;
+    }
+    
+    .wheel-arrow {
+        width: 90px;
+    }
+  }
+
   @media (max-width: 768px) {
     .header {
       flex-direction: column;
@@ -385,18 +412,17 @@
     }
   
     .character-placeholder {
-      width: 100px;
-      height: 200px;
+      width: 200px;
+      height: 300px;
     }
 
-    .wheel-container,
-    .wheel-wrapper {
-      width: 350px;
-      height: 350px;
+    .wheel-container {
+        width: 350px;
+        height: 350px;
     }
     
     .wheel-arrow {
-      width: 40px;
+        width: 60px;
     }
     
     .spin-button {
@@ -404,6 +430,13 @@
       padding: 12px 24px;
     }
 
+    .top-left {
+        left: -20px;
+    }
+    
+    .top-right {
+        right: -20px;
+    }
   }
   
   @media (max-width: 480px) {
@@ -511,11 +544,11 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* Покроет весь .wheel-container */
+    width: 150%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.05); /* Можешь заменить на гифку фоном */
-    border: 2px dashed #ffffff30;
-    z-index: 0; /* обязательно ниже колеса */
+    background: url('../assets/images/shadowBehindWheel.png') no-repeat center center;
+    background-size: contain;
+    z-index: 0;
     pointer-events: none;
   }
 
