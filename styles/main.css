@@ -23,11 +23,11 @@
     overflow-x: hidden;
   }
   
-  /* Контейнеры для прозрачных плейсхолдеров */
+  /* Контейнеры для персонажей */
   .character-placeholder {
     position: absolute;
-    width: 400px;
-    height: 600px;
+    width: 600px;
+    height: 900px;
     pointer-events: none;
     z-index: 1;
   }
@@ -35,17 +35,21 @@
   .character-placeholder.left {
     background: url('../assets/images/Charters1_.png') no-repeat center center;
     background-size: contain;
+    top: 50px; /* Подняли левую иконку ближе к логотипу */
+    left: -100px;
   }
   
   .character-placeholder.right {
     background: url('../assets/images/Charters2_.png') no-repeat center center;
     background-size: contain;
+    bottom: -300px; /* Опустили мумию ниже */
+    right: -100px;
   }
   
   /* Расположение плейсхолдеров */
   .top-left {
-    top: 5%;
-    left: 0;
+    bottom: -200px; /* Опустили ниже */
+    left: -150px; /* Сдвинули левее */
   }
   
   .bottom-left {
@@ -54,8 +58,8 @@
   }
   
   .top-right {
-    top: 5%;
-    right: 0;
+    bottom: -200px; /* Опустили ниже */
+    right: -150px; /* Сдвинули правее */
   }
   
   .bottom-right {
@@ -74,14 +78,13 @@
 
   /* ЛОГО возле колеса */
   .logo {
-    font-size: 43px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 25px;
-    color: #ffd700;
-    text-shadow: 2px 2px 4px #000;
-    width: 100%;
+    display: block;
+    max-width: 300px;
+    height: auto;
+    margin: 20px auto 60px auto;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
   }
+
   .language-dropdown {
     position: relative;
     display: inline-block;
@@ -153,27 +156,24 @@
   
   .wheel-container {
     position: relative;
-    width: 1050px; /* Увеличили в 3 раза с 350px */
-    height: 1050px; /* Увеличили в 3 раза с 350px */
+    width: 1050px;
+    height: 1050px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
-  }
-  
-  
-   .wheel-wrapper {
+}
+
+.wheel-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
-    transform: rotate(0deg);
-    z-index: 2;
-  } 
+}
 
-  .wheel-bg {
+/* 3-й слой - Внешняя рамка с точками */
+.wheel-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -181,54 +181,130 @@
     height: 100%;
     border-radius: 50%;
     z-index: 1;
-  }
+}
 
-  .wheel-inside {
+/* 2-й слой - Внутренняя часть с бонусами */
+.wheel-inside {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    width: 85%;
+    height: 85%;
+    z-index: 2;
+    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
+    transform-origin: center;
+}
+
+/* 1-й слой - Центральная кнопка вращения */
+.wheel-button-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 75%;
-    height: 75%;
-    z-index: 2;
-  }
+    width: 60%;
+    height: 60%;
+    z-index: 3;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
 
-/* Статичная стрелочка поверх колеса */
+.wheel-button {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.wheel-button-container:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Статичная стрелочка поверх всего */
 .wheel-arrow {
     position: absolute;
     top: -75px;
     left: 50%;
     transform: translateX(-50%);
-    width: 120px; /* Увеличили примерно в 1.5-2 раза */
+    width: 120px;
     height: auto;
-    z-index: 3;
+    z-index: 4;
     pointer-events: none;
-  }
-
-/* Кнопка крутить */
-.spin-button {
-  margin: 30px auto 0 auto; /* сверху 30px, по бокам авто = центр */
-  display: block;           /* блочный элемент — чтобы margin работал */
-  padding: 14px 32px;
-  font-size: 18px;
-  font-weight: bold;
-  background: linear-gradient(to right, #ffc107, #ff9800);
-  color: black;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-  transition: all 0.3s ease;
 }
 
+/* Временная кнопка (будет удалена) */
+.spin-button {
+    display: none;
+}
 
-  .spin-button:hover {
-    background: linear-gradient(to right, #ffb300, #f57c00);
-    transform: scale(1.05);
-  }
+/* Адаптивность */
+@media (max-width: 1440px) {
+    .wheel-container {
+        width: 700px;
+        height: 700px;
+    }
+    
+    .wheel-arrow {
+        width: 90px;
+    }
 
+    .wheel-button-container {
+        width: 60%;
+        height: 60%;
+    }
 
- .wheel-section {
+    .character-placeholder {
+        width: 450px;
+        height: 675px;
+    }
+    
+    .character-placeholder.left {
+        top: 40px;
+        left: -80px;
+    }
+    
+    .character-placeholder.right {
+        bottom: -200px;
+        right: -80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wheel-container {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .wheel-arrow {
+        width: 60px;
+    }
+
+    .wheel-button-container {
+        width: 65%;
+        height: 65%;
+    }
+
+    .logo {
+        max-width: 200px;
+        margin: 15px auto 40px auto;
+    }
+
+    .character-placeholder {
+        width: 300px;
+        height: 450px;
+    }
+    
+    .character-placeholder.left {
+        top: 30px;
+        left: -50px;
+    }
+    
+    .character-placeholder.right {
+        bottom: -150px;
+        right: -50px;
+    }
+}
+
+.wheel-section {
   --angle: calc(360deg / 8);
   position: absolute;
   top: 50%;
@@ -399,46 +475,6 @@
     }
   }
 
-  @media (max-width: 768px) {
-    .header {
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-  
-    .logo, .language-switcher {
-      flex: none;
-      text-align: center;
-    }
-  
-    .character-placeholder {
-      width: 200px;
-      height: 300px;
-    }
-
-    .wheel-container {
-        width: 350px;
-        height: 350px;
-    }
-    
-    .wheel-arrow {
-        width: 60px;
-    }
-    
-    .spin-button {
-      font-size: 16px;
-      padding: 12px 24px;
-    }
-
-    .top-left {
-        left: -20px;
-    }
-    
-    .top-right {
-        right: -20px;
-    }
-  }
-  
   @media (max-width: 480px) {
     #spinButton {
       padding: 12px 20px;

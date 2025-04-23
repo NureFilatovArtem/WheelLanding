@@ -40,27 +40,25 @@
 
   <!-- Центральная часть с колесом -->
   <main class="main-content">
-   
-    <div class="logo">LOGO</div>
+    <img src="assets/images/charlie-logo.png" alt="Charlie Logo" class="logo">
     <div class="wheel-container">
         <div class="character-placeholder center-wheel"></div>
         <div class="wheel-wrapper" id="wheel">
             <img src="assets/images/WheelCorner.png"
-                 alt="Колесо фортуны"
+                 alt="Внешняя часть колеса"
                  class="wheel-bg" />
             <img src="assets/images/WheelInside.png"
                  alt="Внутренняя часть колеса"
                  class="wheel-inside" />
-            <img src="assets/images/WheelButton.png"
-                 alt="Центральная кнопка"
-                 class="wheel-button" />
+            <div class="wheel-button-container">
+                <img src="assets/images/WheelButton.png"
+                     alt="Кнопка вращения"
+                     class="wheel-button" />
+            </div>
         </div>
 
       <!-- Статичная стрелочка -->
       <img src="assets/images/WheelArrow.png" alt="Arrow" class="wheel-arrow" />
-
-      <!-- Кнопка крутить -->
-      <button class="spin-button" id="spinButton">Крутить!</button>
     </div>
   </main>
   <!-- Модальное окно с поздравлением -->
