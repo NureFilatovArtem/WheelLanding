@@ -26,24 +26,27 @@
   /* Контейнеры для персонажей */
   .character-placeholder {
     position: absolute;
-    width: 600px;
-    height: 900px;
     pointer-events: none;
     z-index: 1;
   }
   
   .character-placeholder.left {
+    width: 300px;
+    height: 450px;
     background: url('../assets/images/Charters1_.png') no-repeat center center;
     background-size: contain;
-    top: 50px; /* Подняли левую иконку ближе к логотипу */
-    left: -100px;
+    top: 50px;
+    left: -50px;
+    transform: rotate(45deg); /* Добавили наклон вправо */
   }
   
   .character-placeholder.right {
+    width: 500px;
+    height: 750px;
     background: url('../assets/images/Charters2_.png') no-repeat center center;
     background-size: contain;
-    bottom: -300px; /* Опустили мумию ниже */
-    right: -100px;
+    bottom: -150px; /* Подняли выше с -200px */
+    right: -40px; /* Сдвинули левее с -80px */
   }
   
   /* Расположение плейсхолдеров */
@@ -156,8 +159,8 @@
   
   .wheel-container {
     position: relative;
-    width: 1050px;
-    height: 1050px;
+    width: 900px;
+    height: 900px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -189,10 +192,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
-    width: 85%;
-    height: 85%;
+    width: 82%;
+    height: 82%;
     z-index: 2;
-    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
+    /* transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1); */
     transform-origin: center;
 }
 
@@ -202,11 +205,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
-    height: 60%;
+    width: 55%;
+    height: 55%;
     z-index: 3;
     cursor: pointer;
-    transition: transform 0.3s ease;
 }
 
 .wheel-button {
@@ -217,6 +219,7 @@
 
 .wheel-button-container:hover {
     transform: translate(-50%, -50%) scale(1.05);
+    transition: transform 0.2s ease; /* Keep only hover effect */
 }
 
 /* Статичная стрелочка поверх всего */
@@ -252,19 +255,42 @@
         height: 60%;
     }
 
-    .character-placeholder {
-        width: 450px;
-        height: 675px;
-    }
-    
     .character-placeholder.left {
+        width: 250px;
+        height: 375px;
         top: 40px;
-        left: -80px;
+        left: -40px;
+        transform: rotate(45deg);
     }
     
     .character-placeholder.right {
-        bottom: -200px;
-        right: -80px;
+        width: 400px;
+        height: 600px;
+        bottom: -120px;
+        right: -30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .wheel-container {
+        width: 500px;
+        height: 500px;
+        margin-top: 30px;
+    }
+    
+    .character-placeholder.left {
+        width: 200px;
+        height: 300px;
+        top: 30px;
+        left: -30px;
+        transform: rotate(45deg);
+    }
+    
+    .character-placeholder.right {
+        width: 300px;
+        height: 450px;
+        bottom: -80px;
+        right: -20px;
     }
 }
 
@@ -272,6 +298,7 @@
     .wheel-container {
         width: 350px;
         height: 350px;
+        margin-top: 20px;
     }
     
     .wheel-arrow {
@@ -279,8 +306,8 @@
     }
 
     .wheel-button-container {
-        width: 65%;
-        height: 65%;
+        width: 60%;
+        height: 60%;
     }
 
     .logo {
@@ -288,19 +315,19 @@
         margin: 15px auto 40px auto;
     }
 
-    .character-placeholder {
-        width: 300px;
-        height: 450px;
-    }
-    
     .character-placeholder.left {
-        top: 30px;
-        left: -50px;
+        width: 150px;
+        height: 225px;
+        top: 20px;
+        left: -20px;
+        transform: rotate(45deg);
     }
     
     .character-placeholder.right {
-        bottom: -150px;
-        right: -50px;
+        width: 200px;
+        height: 300px;
+        bottom: -60px;
+        right: -15px;
     }
 }
 
@@ -601,3 +628,21 @@ background-position: center;
     color: white;
     box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
   } */
+
+/* Remove any other transitions */
+.character-placeholder,
+.wheel-wrapper,
+.wheel-bg,
+.wheel-arrow {
+    transition: none;
+}
+
+/* Add a comment for size customization */
+/*
+ * Main component sizes:
+ * .wheel-container: width & height = 900px
+ * .character-placeholder.left: width = 300px, height = 450px
+ * .character-placeholder.right: width = 500px, height = 750px
+ * .wheel-inside: width & height = 82% of container
+ * .wheel-button-container: width & height = 55% of container
+ */
