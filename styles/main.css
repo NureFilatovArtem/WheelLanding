@@ -192,8 +192,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
-    width: 82%;
-    height: 82%;
+    width: 96%;
+    height: 96%;
     z-index: 2;
     transform-origin: center;
 }
@@ -224,7 +224,7 @@
 /* Статичная стрелочка поверх всего */
 .wheel-arrow {
     position: absolute;
-    top: -75px;
+    top: -10px;
     left: 50%;
     transform: translateX(-50%);
     width: 120px;

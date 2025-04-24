@@ -22,26 +22,60 @@ export function showConfetti() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
     
+    // Базовые настройки конфетти
     const confettiSettings = {
-        particleCount: screenWidth < 768 ? 50 : 100,
-        spread: screenWidth < 768 ? 60 : 100,
-        origin: { y: 0.6 },
-        startVelocity: 30,
-        scalar: screenWidth < 768 ? 0.7 : 1,
-        ticks: 300,
+        particleCount: 80,
+        spread: 100,
+        startVelocity: 45,
+        gravity: 0.9,
+        scalar: 1.2,
+        ticks: 400,
         zIndex: 100,
         colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
     };
 
-    for (let i = 0; i < (screenWidth < 768 ? 2 : 4); i++) {
+    // Функция для запуска конфетти из определенной точки
+    function launchConfettiFrom(x, y) {
         confetti({
             ...confettiSettings,
-            origin: { 
-                x: (i + 1) / (screenWidth < 768 ? 3 : 5),
-                y: 0.6
-            }
+            origin: { x, y },
+            angle: 90 + (Math.random() - 0.5) * 30, // Случайный угол вверх ±15 градусов
+            drift: (Math.random() - 0.5) * 2 // Случайное боковое смещение
         });
     }
+
+    // Запускаем конфетти со всех сторон экрана
+    function createConfettiWave() {
+        // Нижняя часть экрана
+        for (let i = 0; i < 6; i++) {
+            launchConfettiFrom(i * 0.2, 1);
+        }
+        
+        // Левая сторона
+        for (let i = 1; i <= 3; i++) {
+            launchConfettiFrom(0, i * 0.25);
+        }
+        
+        // Правая сторона
+        for (let i = 1; i <= 3; i++) {
+            launchConfettiFrom(1, i * 0.25);
+        }
+
+        // Центральный взрыв
+        confetti({
+            particleCount: 150,
+            spread: 360,
+            startVelocity: 45,
+            gravity: 0.8,
+            scalar: 1.2,
+            origin: { x: 0.5, y: 0.5 }
+        });
+    }
+
+    // Создаем несколько волн конфетти с интервалом
+    createConfettiWave();
+    setTimeout(createConfettiWave, 250);
+    setTimeout(createConfettiWave, 500);
 }
 
 export function showPrizeModal() {
