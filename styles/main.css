@@ -33,10 +33,10 @@
   .character-placeholder.left {
     width: 300px;
     height: 450px;
+    left: 10vmin;
     background: url('../assets/images/Charters1_.png') no-repeat center center;
     background-size: contain;
     top: 50px;
-    left: -50px;
     transform: rotate(45deg); /* Добавили наклон вправо */
   }
   
@@ -45,7 +45,7 @@
     height: 750px;
     background: url('../assets/images/Charters2_.png') no-repeat center center;
     background-size: contain;
-    bottom: -150px; /* Подняли выше с -200px */
+    bottom: -20px; /* Подняли выше с -200px */
     right: -40px; /* Сдвинули левее с -80px */
   }
   
@@ -195,7 +195,6 @@
     width: 82%;
     height: 82%;
     z-index: 2;
-    /* transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1); */
     transform-origin: center;
 }
 

@@ -22,7 +22,6 @@ export function showConfetti() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
     
-    // Base confetti settings
     const confettiSettings = {
         particleCount: screenWidth < 768 ? 50 : 100,
         spread: screenWidth < 768 ? 60 : 100,
@@ -34,7 +33,6 @@ export function showConfetti() {
         colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
     };
 
-    // Create confetti for full screen width
     for (let i = 0; i < (screenWidth < 768 ? 2 : 4); i++) {
         confetti({
             ...confettiSettings,
@@ -53,19 +51,11 @@ export function showPrizeModal() {
     showConfetti();
 }
 
- 
-  document.addEventListener("DOMContentLoaded", () => {
-    const spinBtn = document.getElementById("spinButton");
+document.addEventListener("DOMContentLoaded", () => {
     const wheelButton = document.querySelector(".wheel-button-container");
     const lang = localStorage.getItem("selectedLang") || "ru";
     const t = translations[lang];
-  
-    const alreadySpun = hasSpunRecently();
-  
-    // 👉 Первый текст
-    spinBtn.innerText = alreadySpun ? t.btnText : t.spin;
-  
-    // Добавляем обработчик для WheelButton
+
     wheelButton.addEventListener("click", () => {
         if (hasSpunRecently()) {
             window.location.href = "https://google.com";
@@ -73,47 +63,29 @@ export function showPrizeModal() {
         }
 
         const wheelInside = document.querySelector(".wheel-inside");
-        if (!wheelInside.style.transform.includes("rotate")) {
-            // 5 полных оборотов + остановка на 7-м секторе (индекс 6 из 8, угол 6 * 45 = 270)
-            const spins = 5 * 360;
-            const stopAt = 270; // Сектор 7
+        
+        // Сбрасываем текущее вращение
+        wheelInside.style.transition = 'none';
+        wheelInside.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+        wheelInside.offsetHeight; // Форсируем reflow
+        wheelInside.style.transition = 'transform 5s cubic-bezier(0.33, 1, 0.68, 1)';
+        
+        // Запускаем вращение
+        requestAnimationFrame(() => {
+            const spins = 5 * 360; // 5 полных оборотов
+            const stopAt = 270; // 7-й сектор (6 * 45 = 270 градусов)
             const finalRotation = spins + stopAt;
-
             wheelInside.style.transform = `translate(-50%, -50%) rotate(${finalRotation}deg)`;
-
-            // Показываем конфетти и модальное окно после вращения
-            setTimeout(() => {
-                showConfetti();
-                showPrizeModal();
-
-                // Обновляем localStorage с таймером
-                localStorage.setItem("hasSpun", JSON.stringify({
-                    time: Date.now()
-                }));
-
-                // 👉 Меняем текст на кнопке
-                spinBtn.innerText = t.btnText;
-            }, 5200);
-        }
-    });
-  
-    // Оставляем существующий обработчик для старой кнопки
-    spinBtn.addEventListener("click", () => {
-      if (hasSpunRecently()) {
-        window.location.href = "https://google.com";
-      } else {
-        spinBtn.disabled = true;
-        spinWheel(() => {
-          showConfetti();
-          showPrizeModal();
-  
-          localStorage.setItem("hasSpun", JSON.stringify({
-            time: Date.now()
-          }));
-  
-          spinBtn.innerText = t.btnText;
-          spinBtn.disabled = false;
         });
-      }
+
+        // Ждем окончания анимации
+        setTimeout(() => {
+            showConfetti();
+            showPrizeModal();
+
+            localStorage.setItem("hasSpun", JSON.stringify({
+                time: Date.now()
+            }));
+        }, 5200);
     });
-  });
+});
