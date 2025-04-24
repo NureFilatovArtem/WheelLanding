@@ -80,8 +80,17 @@ export function showConfetti() {
 
 export function showPrizeModal() {
     const modal = document.getElementById("prizeModal");
+    const content = modal.querySelector(".modal-content");
+    const lang = localStorage.getItem("selectedLang") || "ru";
+    const t = translations[lang];
+
+    // Обновляем тексты в модальном окне согласно выбранному языку
+    modal.querySelector("h2").textContent = t.prizeTitle;
+    modal.querySelector("p").textContent = t.prizeText;
+    modal.querySelector("button").textContent = t.btnText;
+
     modal.classList.remove("hidden");
-    modal.querySelector(".modal-content").classList.add("show");
+    content.classList.add("show");
     showConfetti();
 }
 
@@ -114,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Ждем окончания анимации
         setTimeout(() => {
-            showConfetti();
             showPrizeModal();
 
             localStorage.setItem("hasSpun", JSON.stringify({
