@@ -249,17 +249,11 @@
         width: 90px;
     }
 
-    .wheel-button-container {
-        width: 60%;
-        height: 60%;
-    }
-
     .character-placeholder.left {
         width: 250px;
         height: 375px;
         top: 40px;
         left: -40px;
-        transform: rotate(45deg);
     }
     
     .character-placeholder.right {
@@ -274,7 +268,6 @@
     .wheel-container {
         width: 500px;
         height: 500px;
-        margin-top: 30px;
     }
     
     .character-placeholder.left {
@@ -282,7 +275,6 @@
         height: 300px;
         top: 30px;
         left: -30px;
-        transform: rotate(45deg);
     }
     
     .character-placeholder.right {
@@ -295,23 +287,17 @@
 
 @media (max-width: 768px) {
     .wheel-container {
-        width: 350px;
-        height: 350px;
-        margin-top: 20px;
+        width: 400px;
+        height: 400px;
     }
     
     .wheel-arrow {
-        width: 60px;
-    }
-
-    .wheel-button-container {
-        width: 60%;
-        height: 60%;
+        width: 70px;
     }
 
     .logo {
-        max-width: min(250px, 25vw);
-        margin: 0.5vh auto;
+        max-width: 200px;
+        margin: 15px auto 30px;
     }
 
     .character-placeholder.left {
@@ -319,14 +305,81 @@
         height: 225px;
         top: 20px;
         left: -20px;
-        transform: rotate(45deg);
     }
     
     .character-placeholder.right {
-        width: min(200px, 20vw);
-        height: min(300px, 30vw);
+        width: 200px;
+        height: 300px;
         bottom: -60px;
         right: -15px;
+    }
+}
+
+/* Добавляем новые брейкпоинты для маленьких экранов */
+@media (max-width: 500px) {
+    .wheel-container {
+        width: 320px;
+        height: 320px;
+        margin-top: 10px;
+    }
+    
+    .wheel-arrow {
+        width: 50px;
+    }
+
+    .logo {
+        max-width: 150px;
+        margin: 10px auto 20px;
+    }
+
+    .character-placeholder.left {
+        width: 100px;
+        height: 150px;
+        top: 15px;
+        left: -15px;
+    }
+    
+    .character-placeholder.right {
+        width: 140px;
+        height: 210px;
+        bottom: -40px;
+        right: -10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .wheel-container {
+        width: 280px;
+        height: 280px;
+        margin-top: 5px;
+    }
+    
+    .wheel-arrow {
+        width: 40px;
+    }
+
+    .logo {
+        max-width: 120px;
+        margin: 5px auto 15px;
+    }
+
+    .character-placeholder.left {
+        width: 80px;
+        height: 120px;
+        top: 10px;
+        left: -10px;
+    }
+    
+    .character-placeholder.right {
+        width: 120px;
+        height: 180px;
+        bottom: -30px;
+        right: -8px;
+    }
+
+    .wheel-button-container {
+        width: 50%;
+        height: 50%;
     }
 }
 
