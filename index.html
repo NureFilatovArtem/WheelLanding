@@ -64,9 +64,24 @@
   <!-- Модальное окно с поздравлением -->
   <div class="modal hidden" id="prizeModal">
     <div class="modal-content">
+      <button class="close-button">&times;</button>
       <h2>Поздравляем!</h2>
-      <p>Заберите ваш приз!</p>
-      <button id="closeModal">Забрать</button>
+      <p>Выберите один из билетов:</p>
+      <div class="tickets-grid">
+        <div class="ticket" data-ticket="1">
+          <img src="assets/images/ticket.png" alt="Ticket 1">
+        </div>
+        <div class="ticket" data-ticket="2">
+          <img src="assets/images/ticket.png" alt="Ticket 2">
+        </div>
+        <div class="ticket" data-ticket="3">
+          <img src="assets/images/ticket.png" alt="Ticket 3">
+        </div>
+        <div class="ticket" data-ticket="4">
+          <img src="assets/images/ticket.png" alt="Ticket 4">
+        </div>
+      </div>
+      <button id="closeModal" class="hidden">Забрать</button>
     </div>
   </div>
 

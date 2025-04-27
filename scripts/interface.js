@@ -87,12 +87,63 @@ export function showPrizeModal() {
     // Обновляем тексты в модальном окне согласно выбранному языку
     modal.querySelector("h2").textContent = t.prizeTitle;
     modal.querySelector("p").textContent = t.prizeText;
-    modal.querySelector("button").textContent = t.btnText;
+    modal.querySelector("#closeModal").textContent = t.btnText;
+
+    // Скрываем кнопку "Забрать" изначально
+    modal.querySelector("#closeModal").classList.add("hidden");
+
+    // Добавляем обработчики для билетов
+    const tickets = modal.querySelectorAll(".ticket");
+    tickets.forEach(ticket => {
+        ticket.addEventListener("click", () => {
+            // Убираем класс selected со всех билетов
+            tickets.forEach(t => t.classList.remove("selected"));
+            // Добавляем класс selected выбранному билету
+            ticket.classList.add("selected");
+
+            // Показываем кнопку "Забрать" после выбора билета
+            setTimeout(() => {
+                modal.querySelector("#closeModal").classList.remove("hidden");
+            }, 1000); // Показываем кнопку через 1 секунду после выбора билета
+        });
+    });
+
+    // Добавляем обработчик для кнопки закрытия
+    const closeButton = modal.querySelector(".close-button");
+    closeButton.addEventListener("click", () => {
+        modal.classList.add("hidden");
+    });
 
     modal.classList.remove("hidden");
     content.classList.add("show");
     showConfetti();
 }
+
+// Предотвращаем закрытие модального окна при клике вне контента
+document.addEventListener("click", (event) => {
+    const modal = document.getElementById("prizeModal");
+    const modalContent = modal.querySelector(".modal-content");
+    const closeButton = modal.querySelector(".close-button");
+  
+    if (!modal.classList.contains("hidden") && 
+        !modalContent.contains(event.target) && 
+        !closeButton.contains(event.target)) {
+        event.stopPropagation(); // Предотвращаем закрытие
+    }
+});
+
+// Обработчик для кнопки "Забрать"
+document.getElementById("closeModal").addEventListener("click", () => {
+    const hasSpunData = JSON.parse(localStorage.getItem("hasSpun"));
+    const now = Date.now();
+    const spunRecently = hasSpunData && now - hasSpunData.time < 2 * 60 * 1000;
+
+    if (spunRecently) {
+        window.location.href = "https://google.com";
+    } else {
+        document.getElementById("prizeModal").classList.add("hidden");
+    }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     const wheelButton = document.querySelector(".wheel-button-container");
