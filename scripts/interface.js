@@ -108,11 +108,11 @@ export function showPrizeModal() {
         });
     });
 
-    // Добавляем обработчик для кнопки закрытия
+    // Обработчик для крестика-кнопки закрытия
     const closeButton = modal.querySelector(".close-button");
-    closeButton.addEventListener("click", () => {
+    closeButton.onclick = () => {
         modal.classList.add("hidden");
-    });
+    };
 
     modal.classList.remove("hidden");
     content.classList.add("show");
@@ -123,29 +123,17 @@ export function showPrizeModal() {
 document.addEventListener("click", (event) => {
     const modal = document.getElementById("prizeModal");
     const modalContent = modal.querySelector(".modal-content");
-    const closeButton = modal.querySelector(".close-button");
   
-    if (!modal.classList.contains("hidden") && 
-        !modalContent.contains(event.target) && 
-        !closeButton.contains(event.target)) {
+    if (!modal.classList.contains("hidden") && !modalContent.contains(event.target)) {
         event.stopPropagation(); // Предотвращаем закрытие
     }
 });
 
-// Обработчик для кнопки "Забрать"
-document.getElementById("closeModal").addEventListener("click", () => {
-    const hasSpunData = JSON.parse(localStorage.getItem("hasSpun"));
-    const now = Date.now();
-    const spunRecently = hasSpunData && now - hasSpunData.time < 2 * 60 * 1000;
-
-    if (spunRecently) {
-        window.location.href = "https://google.com";
-    } else {
-        document.getElementById("prizeModal").classList.add("hidden");
-    }
-});
-
 document.addEventListener("DOMContentLoaded", () => {
+    // Скрываем модалку при загрузке страницы на всякий случай
+    const modal = document.getElementById("prizeModal");
+    if (modal) modal.classList.add("hidden");
+
     const wheelButton = document.querySelector(".wheel-button-container");
     const lang = localStorage.getItem("selectedLang") || "ru";
     const t = translations[lang];

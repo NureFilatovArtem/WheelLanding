@@ -651,21 +651,36 @@ background-position: center;
 .tickets-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin: 20px 0;
+  gap: 32px;
+  margin: 32px 0;
+  width: 440px;
+  height: 260px;
+  justify-items: center;
+  align-items: center;
 }
 
 .ticket {
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease;
+  width: 180px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ticket img {
   width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  outline: none;
+}
+
+.ticket img:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .ticket:hover {
@@ -697,6 +712,10 @@ background-position: center;
   }
 }
 
+#closeModal.hidden {
+  display: none;
+}
+
 /* Стили для кнопки закрытия */
 .close-button {
   position: absolute;
@@ -720,6 +739,7 @@ background-position: center;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-#closeModal.hidden {
-  display: none;
+.modal.hidden {
+  display: none !important;
+  z-index: -1 !important;
 }
