@@ -84,6 +84,14 @@ export function showPrizeModal() {
     const lang = localStorage.getItem("selectedLang") || "ru";
     const t = translations[lang];
 
+    // Локализация для "Пусто"
+    const emptyText = {
+        ru: 'Пусто',
+        ua: 'Порожньо',
+        by: 'Пуста',
+        kz: 'Бос'
+    }[lang] || 'Пусто';
+
     // Обновляем тексты в модальном окне согласно выбранному языку
     modal.querySelector("h2").textContent = t.prizeTitle;
     modal.querySelector("p").textContent = t.prizeText;
@@ -94,18 +102,21 @@ export function showPrizeModal() {
 
     // Добавляем обработчики для билетов
     const tickets = modal.querySelectorAll(".ticket");
-    tickets.forEach(ticket => {
-        ticket.addEventListener("click", () => {
-            // Убираем класс selected со всех билетов
-            tickets.forEach(t => t.classList.remove("selected"));
-            // Добавляем класс selected выбранному билету
-            ticket.classList.add("selected");
-
+    tickets.forEach((ticket, idx) => {
+        ticket.onclick = () => {
+            // Открываем все билеты
+            tickets.forEach((t, i) => {
+                t.classList.add("selected");
+                const reward = t.querySelector('.ticket-reward');
+                if (i !== idx) {
+                    reward.innerHTML = `<small>${emptyText}</small>`;
+                }
+            });
             // Показываем кнопку "Забрать" после выбора билета
             setTimeout(() => {
                 modal.querySelector("#closeModal").classList.remove("hidden");
-            }, 1000); // Показываем кнопку через 1 секунду после выбора билета
-        });
+            }, 1000);
+        };
     });
 
     // Обработчик для крестика-кнопки закрытия
