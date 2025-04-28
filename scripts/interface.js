@@ -100,18 +100,33 @@ export function showPrizeModal() {
     // Скрываем кнопку "Забрать" изначально
     modal.querySelector("#closeModal").classList.add("hidden");
 
-    // Добавляем обработчики для билетов
+    // Обработчики для билетов
     const tickets = modal.querySelectorAll(".ticket");
     tickets.forEach((ticket, idx) => {
         ticket.onclick = () => {
-            // Открываем все билеты
-            tickets.forEach((t, i) => {
-                t.classList.add("selected");
+            // Очищаем предыдущие выигрыши, если они были
+            tickets.forEach(t => {
                 const reward = t.querySelector('.ticket-reward');
-                if (i !== idx) {
+                reward.innerHTML = '';
+            });
+
+            // Показываем все билеты как выбранные
+            tickets.forEach(t => {
+                t.classList.add("selected");
+            });
+
+            // Устанавливаем выигрыш на выбранном билете
+            const selectedReward = ticket.querySelector('.ticket-reward');
+            selectedReward.innerHTML = '<span class="bonus-main">150</span> <span class="bonus-sub">FREE SPINS</span>';
+
+            // Показываем "Пусто" на остальных билетах
+            tickets.forEach((t, i) => {
+                if (t !== ticket) {
+                    const reward = t.querySelector('.ticket-reward');
                     reward.innerHTML = `<small>${emptyText}</small>`;
                 }
             });
+
             // Показываем кнопку "Забрать" после выбора билета
             setTimeout(() => {
                 modal.querySelector("#closeModal").classList.remove("hidden");

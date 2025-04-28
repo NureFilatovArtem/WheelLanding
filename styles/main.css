@@ -45,7 +45,7 @@
     height: 750px;
     background: url('../assets/images/Charters2_.png') no-repeat center center;
     background-size: contain;
-    bottom: -10px; /* Подняли выше с -200px */
+    bottom: -25px; /* Подняли выше с -200px */
     right: -40px; /* Сдвинули левее с -80px */
   }
   
