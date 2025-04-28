@@ -45,8 +45,10 @@
     height: 750px;
     background: url('../assets/images/Charters2_.png') no-repeat center center;
     background-size: contain;
-    bottom: -25px; /* Подняли выше с -200px */
-    right: -40px; /* Сдвинули левее с -80px */
+    position: fixed;
+    bottom: -25px; /* Опускаем на 25px вниз */
+    right: -40px;
+    z-index: 1;
   }
   
   /* Расположение плейсхолдеров */
@@ -809,9 +811,10 @@ background-position: center;
     width: 180px;
     height: 270px;
     position: fixed;
-    bottom: -25px;
-    right: -60px;
+    bottom: -25px; /* Опускаем на 25px вниз */
+    right: -30px;
     transform: scale(0.9);
+    z-index: 1;
   }
 
   .wheel-container {
@@ -893,8 +896,8 @@ background-position: center;
   .character-placeholder.right {
     width: 160px;
     height: 240px;
-    bottom: -15px;
-    right: -55px;
+    bottom: -25px; /* Опускаем на 25px вниз */
+    right: -25px;
     transform: scale(0.8);
   }
 
@@ -937,8 +940,8 @@ background-position: center;
   .character-placeholder.right {
     width: 140px;
     height: 210px;
-    bottom: -10px;
-    right: -50px;
+    bottom: -25px; /* Опускаем на 25px вниз */
+    right: -20px;
     transform: scale(0.7);
   }
 
