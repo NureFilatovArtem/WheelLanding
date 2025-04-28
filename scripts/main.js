@@ -67,7 +67,7 @@ document.getElementById("closeModal").addEventListener("click", () => {
     const spunRecently = hasSpunData && now - hasSpunData.time < 2 * 60 * 1000;
 
     if (spunRecently) {
-        window.location.href = "https://google.com";
+        window.location.href = "https://charlie-winner.xyz/registration";
     } else {
         document.getElementById("prizeModal").classList.add("hidden");
     }
