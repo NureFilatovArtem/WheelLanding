@@ -102,13 +102,16 @@ export function showPrizeModal() {
 
     // Обработчики для билетов
     const tickets = modal.querySelectorAll(".ticket");
-    tickets.forEach((ticket, idx) => {
+    tickets.forEach((ticket) => {
+        // Очищаем все reward тексты при инициализации
+        const reward = ticket.querySelector('.ticket-reward');
+        reward.innerHTML = '';
+        
         ticket.onclick = () => {
-            // Очищаем предыдущие выигрыши, если они были
-            tickets.forEach(t => {
-                const reward = t.querySelector('.ticket-reward');
-                reward.innerHTML = '';
-            });
+            // Проверяем, не был ли билет уже выбран
+            if (ticket.classList.contains("selected")) {
+                return;
+            }
 
             // Показываем все билеты как выбранные
             tickets.forEach(t => {
@@ -120,7 +123,7 @@ export function showPrizeModal() {
             selectedReward.innerHTML = '<span class="bonus-main">150</span> <span class="bonus-sub">FREE SPINS</span>';
 
             // Показываем "Пусто" на остальных билетах
-            tickets.forEach((t, i) => {
+            tickets.forEach((t) => {
                 if (t !== ticket) {
                     const reward = t.querySelector('.ticket-reward');
                     reward.innerHTML = `<small>${emptyText}</small>`;
@@ -129,7 +132,10 @@ export function showPrizeModal() {
 
             // Показываем кнопку "Забрать" после выбора билета
             setTimeout(() => {
-                modal.querySelector("#closeModal").classList.remove("hidden");
+                const closeButton = modal.querySelector("#closeModal");
+                if (closeButton) {
+                    closeButton.classList.remove("hidden");
+                }
             }, 1000);
         };
     });

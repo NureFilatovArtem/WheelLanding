@@ -295,83 +295,6 @@
     display: none;
 }
 
-/* Адаптивность */
-@media (max-width: 1440px) {
-    .wheel-container {
-        width: 700px;
-        height: 700px;
-    }
-    
-    .wheel-arrow {
-        width: 90px;
-    }
-
-    .character-placeholder.left {
-        width: 250px;
-        height: 375px;
-        top: 40px;
-        left: -40px;
-    }
-    
-    .character-placeholder.right {
-        width: 400px;
-        height: 600px;
-        bottom: -120px;
-        right: -30px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .wheel-container {
-        width: 500px;
-        height: 500px;
-    }
-    
-    .character-placeholder.left {
-        width: 200px;
-        height: 300px;
-        top: 30px;
-        left: -30px;
-    }
-    
-    .character-placeholder.right {
-        width: 300px;
-        height: 450px;
-        bottom: -80px;
-        right: -20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .wheel-container {
-        width: 400px;
-        height: 400px;
-    }
-    
-    .wheel-arrow {
-        width: 70px;
-    }
-
-    .logo {
-        max-width: 200px;
-        margin: 15px auto 30px;
-    }
-
-    .character-placeholder.left {
-        width: 150px;
-        height: 225px;
-        top: 20px;
-        left: -20px;
-    }
-    
-    .character-placeholder.right {
-        width: 200px;
-        height: 300px;
-        bottom: -60px;
-        right: -15px;
-    }
-}
-
 /* Добавляем новые брейкпоинты для маленьких экранов */
 @media (max-width: 500px) {
     .wheel-container {
@@ -545,18 +468,6 @@
   #closeModal:hover {
     background: linear-gradient(to right, #ffca28, #ffa000);
     transform: scale(1.05);
-  }
-
-  /* Адаптивность */
-  @media (max-width: 1440px) {
-    .wheel-container {
-        width: 700px;
-        height: 700px;
-    }
-    
-    .wheel-arrow {
-        width: 90px;
-    }
   }
 
   @media (max-width: 480px) {
@@ -870,4 +781,193 @@ background-position: center;
 @keyframes reward-fade-in {
   0% { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
   100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Новые медиа-запросы для мобильных устройств */
+@media screen and (max-width: 760px) {
+  .main-content {
+    padding: 0 10px;
+    justify-content: flex-start;
+    padding-top: 40px;
+  }
+
+  .logo-wrapper {
+    width: 180px;
+    margin: 0 auto 20px;
+  }
+
+  .character-placeholder.left {
+    width: 140px;
+    height: 210px;
+    position: absolute;
+    top: 100px;
+    left: -20px;
+    transform: rotate(25deg);
+  }
+
+  .character-placeholder.right {
+    width: 160px;
+    height: 240px;
+    position: absolute;
+    bottom: 20px;
+    right: -30px;
+    transform: scale(0.9);
+  }
+
+  .wheel-container {
+    width: 85vw;
+    height: 85vw;
+    max-width: 380px;
+    max-height: 380px;
+    margin: 120px auto 0;
+  }
+
+  .wheel-button-container {
+    width: 45%;
+    height: 45%;
+  }
+
+  .wheel-arrow {
+    width: 60px;
+    top: -8px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 20px 15px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .tickets-grid {
+    width: 100%;
+    gap: 15px;
+    margin: 20px 0;
+    height: auto;
+    max-width: 440px;
+  }
+
+  .ticket {
+    width: 140px;
+    height: 80px;
+  }
+
+  .bonus-main {
+    font-size: 2rem;
+  }
+
+  .bonus-sub {
+    font-size: 1rem;
+  }
+
+  .language-dropdown {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+  }
+
+  .dropdown-toggle {
+    padding: 6px 10px;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .flag-icon {
+    width: 18px;
+    height: 12px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .logo-wrapper {
+    width: 150px;
+  }
+
+  .character-placeholder.left {
+    width: 120px;
+    height: 180px;
+    top: 90px;
+  }
+
+  .character-placeholder.right {
+    width: 140px;
+    height: 210px;
+    bottom: 15px;
+    right: -25px;
+    transform: scale(0.8);
+  }
+
+  .wheel-container {
+    width: 90vw;
+    height: 90vw;
+    margin: 100px auto 0;
+  }
+
+  .tickets-grid {
+    gap: 10px;
+  }
+
+  .ticket {
+    width: 120px;
+    height: 70px;
+  }
+
+  .bonus-main {
+    font-size: 1.8rem;
+  }
+
+  .bonus-sub {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .logo-wrapper {
+    width: 130px;
+  }
+
+  .character-placeholder.left {
+    width: 100px;
+    height: 150px;
+    top: 80px;
+    left: -15px;
+  }
+
+  .character-placeholder.right {
+    width: 120px;
+    height: 180px;
+    bottom: 10px;
+    right: -20px;
+    transform: scale(0.7);
+  }
+
+  .wheel-container {
+    margin: 90px auto 0;
+  }
+
+  .wheel-button-container {
+    width: 40%;
+    height: 40%;
+  }
+
+  .wheel-arrow {
+    width: 50px;
+  }
+
+  .tickets-grid {
+    gap: 8px;
+  }
+
+  .ticket {
+    width: 110px;
+    height: 65px;
+  }
+
+  .bonus-main {
+    font-size: 1.6rem;
+  }
+
+  .bonus-sub {
+    font-size: 0.8rem;
+  }
 }
