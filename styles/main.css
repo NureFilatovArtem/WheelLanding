@@ -83,44 +83,65 @@
   .logo-wrapper {
     position: relative;
     width: 300px;
-    height: auto;
     margin: 20px auto 60px auto;
-    overflow: visible;
   }
 
   .logo {
     display: block;
     width: 100%;
     height: auto;
-    position: relative;
-    z-index: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.25));
+    animation: logoGlow 2s ease-in-out infinite;
+    -webkit-filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.25));
   }
 
-  .logo-wrapper::after {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
-    z-index: 0;
-    animation: pulseGlow 2s infinite;
-    border-radius: 50%;
-  }
-
-  @keyframes pulseGlow {
+  @keyframes logoGlow {
     0% {
-      opacity: 0.3;
-      transform: scale(0.95);
+      filter: 
+        drop-shadow(0 0 8px rgba(255, 215, 0, 0.25))
+        drop-shadow(0 0 12px rgba(255, 215, 0, 0.15))
+        drop-shadow(0 0 16px rgba(255, 215, 0, 0.1))
+        drop-shadow(0 0 20px rgba(255, 215, 0, 0.05));
     }
     50% {
-      opacity: 0.6;
-      transform: scale(1.05);
+      filter: 
+        drop-shadow(0 0 10px rgba(255, 215, 0, 0.35))
+        drop-shadow(0 0 15px rgba(255, 215, 0, 0.25))
+        drop-shadow(0 0 20px rgba(255, 215, 0, 0.15))
+        drop-shadow(0 0 25px rgba(255, 215, 0, 0.1))
+        brightness(1.05);
     }
     100% {
-      opacity: 0.3;
-      transform: scale(0.95);
+      filter: 
+        drop-shadow(0 0 8px rgba(255, 215, 0, 0.25))
+        drop-shadow(0 0 12px rgba(255, 215, 0, 0.15))
+        drop-shadow(0 0 16px rgba(255, 215, 0, 0.1))
+        drop-shadow(0 0 20px rgba(255, 215, 0, 0.05));
+    }
+  }
+
+  @-webkit-keyframes logoGlow {
+    0% {
+      -webkit-filter: 
+        drop-shadow(0 0 8px rgba(255, 215, 0, 0.25))
+        drop-shadow(0 0 12px rgba(255, 215, 0, 0.15))
+        drop-shadow(0 0 16px rgba(255, 215, 0, 0.1))
+        drop-shadow(0 0 20px rgba(255, 215, 0, 0.05));
+    }
+    50% {
+      -webkit-filter: 
+        drop-shadow(0 0 10px rgba(255, 215, 0, 0.35))
+        drop-shadow(0 0 15px rgba(255, 215, 0, 0.25))
+        drop-shadow(0 0 20px rgba(255, 215, 0, 0.15))
+        drop-shadow(0 0 25px rgba(255, 215, 0, 0.1))
+        brightness(1.05);
+    }
+    100% {
+      -webkit-filter: 
+        drop-shadow(0 0 8px rgba(255, 215, 0, 0.25))
+        drop-shadow(0 0 12px rgba(255, 215, 0, 0.15))
+        drop-shadow(0 0 16px rgba(255, 215, 0, 0.1))
+        drop-shadow(0 0 20px rgba(255, 215, 0, 0.05));
     }
   }
 
